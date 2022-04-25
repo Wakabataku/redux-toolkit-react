@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import "./App.css"
 
-function App() {
+import { useAppSelector, useAppDispatch } from "./store/store"
+import { addition, subtraction } from "./store/counterSlice"
+
+const App: React.FC = (): JSX.Element => {
+  const count = useAppSelector((state) => state.counter.count)
+  const dispatch = useAppDispatch()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Count: {count}</h1>
+      <button onClick={() => dispatch(addition(1))}>Up</button>
+      <button onClick={() => dispatch(subtraction(1))}>Down</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
