@@ -1,5 +1,6 @@
 import { configureStore, createSelector } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
+import logger from "redux-logger"
 
 import counterReducer from "./counterSlice"
 import zennApiReducer from "./zennApiSlice"
@@ -9,6 +10,7 @@ export const store = configureStore({
     counter: counterReducer,
     zennApi: zennApiReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
 export type RootState = ReturnType<typeof store.getState>
