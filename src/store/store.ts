@@ -1,14 +1,24 @@
 import { configureStore, createSelector } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import logger from "redux-logger"
+import { persistReducer, persistStore } from "redux-persist"
+import storage from "redux-persist/lib/storage"
 
 import counterReducer from "./counterSlice"
 import zennApiReducer from "./zennApiSlice"
+
+// 永続化の設定
+const persistConfig = {
+  key: "root",
+  storage,
+}
+const persistedReducer = persistReducer(persistConfig, counterReducer)
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     zennApi: zennApiReducer,
+    persist: persistedReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
