@@ -16,9 +16,8 @@ const persistedReducer = persistReducer(persistConfig, counterReducer)
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     zennApi: zennApiReducer,
-    persist: persistedReducer,
+    counter: persistedReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
