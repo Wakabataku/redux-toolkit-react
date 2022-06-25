@@ -6,6 +6,7 @@ import { Box, Grid } from "@mui/material"
 import { addition, subtraction } from "./store/counterSlice"
 
 import ZennTrendCard from "./ZennTrendCard"
+import { persistor } from "./index"
 
 const AsyncApp: React.FC = () => {
   const count = useAppSelector((state) => state.counter.count)
@@ -26,6 +27,7 @@ const AsyncApp: React.FC = () => {
         <h1>Count: {count}</h1>
         <button onClick={() => dispatch(addition(1))}>Up</button>
         <button onClick={() => dispatch(subtraction(1))}>Down</button>
+        <button onClick={() => persistor.purge()}>Purge</button>
         {trends.length == 0 ? (
           <></>
         ) : (
