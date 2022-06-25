@@ -16,16 +16,18 @@ import { combineReducers } from "redux"
 
 import counterReducer from "./counterSlice"
 import zennApiReducer from "./zennApiSlice"
+import twoCounterReducer from "./twoCounterSlice"
 
 const rootReducer = combineReducers({
   zennApi: zennApiReducer,
   counter: counterReducer,
+  twoCounter: twoCounterReducer,
 })
 // 永続化の設定
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["counter"],
+  whitelist: ["counter", "twoCounter"],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

@@ -7,9 +7,11 @@ import { addition, subtraction } from "./store/counterSlice"
 
 import ZennTrendCard from "./ZennTrendCard"
 import { persistor } from "./index"
+import { additionTwo, subtractionTwo } from "./store/twoCounterSlice"
 
 const AsyncApp: React.FC = () => {
   const count = useAppSelector((state) => state.counter.count)
+  const twoCount = useAppSelector((state) => state.twoCounter.count)
   const dispatch: AppDispatch = useDispatch()
   const trends = useAppSelector(zennTrendSelector)
   const fetchTrends = useCallback(() => {
@@ -28,21 +30,12 @@ const AsyncApp: React.FC = () => {
         <button onClick={() => dispatch(addition(1))}>Up</button>
         <button onClick={() => dispatch(subtraction(1))}>Down</button>
         <button onClick={() => persistor.purge()}>Purge</button>
-        {trends.length == 0 ? (
-          <></>
-        ) : (
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            sx={{ display: "flex" }}
-            spacing={2}
-          >
-            {trends.map((item) => {
-              return <ZennTrendCard item={item} key={item.id} />
-            })}
-          </Grid>
-        )}
+      </Box>
+      <Box sx={{ m: 3 }}>
+        <h1>Count: {twoCount}</h1>
+        <button onClick={() => dispatch(additionTwo(2))}>Up</button>
+        <button onClick={() => dispatch(subtractionTwo(2))}>Down</button>
+        <button onClick={() => persistor.purge()}>Purge</button>
       </Box>
     </div>
   )
