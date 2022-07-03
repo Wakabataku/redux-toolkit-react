@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from "./store/store"
 import { addition, subtraction } from "./store/counterSlice"
 
 const App: React.FC = (): JSX.Element => {
-  const count = useAppSelector((state) => state.counter.count)
+  const count = useAppSelector((state) => state.counter.countOne)
   const dispatch = useAppDispatch()
 
   return (

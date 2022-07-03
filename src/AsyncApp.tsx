@@ -8,7 +8,7 @@ import { twoAsyncCount } from "./store/twoCounterSlice"
 import { persistor } from "./index"
 
 const AsyncApp: React.FC = () => {
-  const count = useAppSelector((state) => state.counter.count)
+  const count = useAppSelector((state) => state.counter.countOne)
   const twoCount = useAppSelector((state) => state.twoCounter)
   const dispatch: AppDispatch = useDispatch()
 

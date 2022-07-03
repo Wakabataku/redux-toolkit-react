@@ -7,11 +7,11 @@ import {
 import { PURGE } from "redux-persist"
 
 type Count = {
-  count: number
+  countOne: number
 }
 
 const initialState: Count = {
-  count: 0,
+  countOne: 0,
 }
 
 export const counterSlice = createSlice({
@@ -19,10 +19,10 @@ export const counterSlice = createSlice({
   initialState: initialState,
   reducers: {
     addition: (state, action: PayloadAction<number>) => {
-      state.count += action.payload
+      state.countOne += action.payload
     },
     subtraction: (state, action: PayloadAction<number>) => {
-      state.count -= action.payload
+      state.countOne -= action.payload
     },
   },
   extraReducers: (builder) => {

@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-import { AppDispatch } from "./store"
-import { useDispatch } from "react-redux"
+import { PURGE } from "redux-persist"
 
 export type Message = {
   count: number
@@ -86,6 +84,10 @@ export const twoCounterSlice = createSlice({
       state.loading = true
       state.error.status = true
       state.error.message = "cannot count Down!"
+    })
+    builder.addCase(PURGE, (state) => {
+      // state.count = initialState.count
+      Object.assign(state, initialState)
     })
   },
 })
