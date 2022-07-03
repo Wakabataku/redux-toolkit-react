@@ -15,7 +15,6 @@ import storage from "redux-persist/lib/storage"
 import { combineReducers } from "redux"
 
 import counterReducer from "./counterSlice"
-import zennApiReducer from "./zennApiSlice"
 import twoCounterReducer from "./twoCounterSlice"
 
 // 永続化の設定
@@ -26,7 +25,6 @@ const persistConfig = {
   whitelist: ["counter", "twoCounter"],
 }
 const rootReducer = combineReducers({
-  zennApi: zennApiReducer,
   counter: counterReducer,
   twoCounter: twoCounterReducer,
 })
@@ -47,8 +45,3 @@ export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-
-const zennApiSelector = (state: RootState) => state.zennApi
-export const zennTrendSelector = createSelector(zennApiSelector, (zenn) => {
-  return zenn.trends
-})
