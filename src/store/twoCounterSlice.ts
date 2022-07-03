@@ -3,8 +3,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppDispatch } from "./store"
 import { useDispatch } from "react-redux"
 
-type Count = {
+export type Message = {
   count: number
+  message: string
+}
+
+type Count = Message & {
   loading: boolean
   error: {
     status: boolean
@@ -14,6 +18,7 @@ type Count = {
 
 const initialState: Count = {
   count: -2,
+  message: "none",
   loading: false,
   error: {
     status: false,
@@ -26,10 +31,10 @@ const sleep = (waitTime: number) =>
 
 export const twoAsyncCount = createAsyncThunk(
   "twoAsyncCount",
-  async (num: number) => {
+  async (numWithMessage: Message) => {
     await sleep(3000)
 
-    return num
+    return numWithMessage
   }
 )
 
@@ -53,11 +58,10 @@ export const twoCounterSlice = createSlice({
     })
     builder.addCase(
       twoAsyncCount.fulfilled,
-      (state, action: PayloadAction<number>) => {
+      (state, action: PayloadAction<Message>) => {
         state.loading = false
-        state.count += action.payload
-        const dispatch: AppDispatch = useDispatch()
-        dispatch(threeAsyncDown(action.payload))
+        state.count += action.payload.count
+        state.message = action.payload.message
       }
     )
     builder.addCase(twoAsyncCount.rejected, (state, action) => {
