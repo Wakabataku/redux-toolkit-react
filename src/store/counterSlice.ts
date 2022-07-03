@@ -1,10 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import {
+  createSlice,
+  PayloadAction,
+  createEntityAdapter,
+  createReducer,
+} from "@reduxjs/toolkit"
+import { PURGE } from "redux-persist"
+
+type Count = {
+  count: number
+}
+
+const initialState: Count = {
+  count: 0,
+}
 
 export const counterSlice = createSlice({
   name: "counter",
-  initialState: {
-    count: 0,
-  },
+  initialState: initialState,
   reducers: {
     addition: (state, action: PayloadAction<number>) => {
       state.count += action.payload
@@ -12,6 +24,12 @@ export const counterSlice = createSlice({
     subtraction: (state, action: PayloadAction<number>) => {
       state.count -= action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, (state) => {
+      // state.count = initialState.count
+      Object.assign(state, initialState)
+    })
   },
 })
 

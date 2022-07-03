@@ -17,18 +17,21 @@ import { combineReducers } from "redux"
 import counterReducer from "./counterSlice"
 import zennApiReducer from "./zennApiSlice"
 import twoCounterReducer from "./twoCounterSlice"
+import { pokemonApi } from "./pokemon"
 
+// 永続化の設定
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  whitelist: ["counter"],
+}
 const rootReducer = combineReducers({
   zennApi: zennApiReducer,
   counter: counterReducer,
   twoCounter: twoCounterReducer,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
 })
-// 永続化の設定
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["counter", "twoCounter"],
-}
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
@@ -38,7 +41,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(logger),
+    })
+      .concat(logger)
+      .concat(pokemonApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>
