@@ -12,11 +12,11 @@ export const arrayCounterSlice = createSlice({
   name: "arrayCounter",
   initialState: initialState,
   reducers: {
-    addition: (state, action: PayloadAction<number>) => {
-      state.arrayCount = state.arrayCount.concat(action.payload)
+    arrayAddition: (state, action: PayloadAction<number[]>) => {
+      state.arrayCount = action.payload
     },
   },
 })
 
-export const { addition } = arrayCounterSlice.actions
+export const { arrayAddition } = arrayCounterSlice.actions
 export default arrayCounterSlice.reducer

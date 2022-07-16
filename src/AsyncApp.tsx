@@ -6,10 +6,12 @@ import { addition, subtraction } from "./store/counterSlice"
 
 import { twoAsyncCount } from "./store/twoCounterSlice"
 import { persistor } from "./index"
+import { arrayAddition } from "./store/arrayCounter"
 
 const AsyncApp: React.FC = () => {
   const count = useAppSelector((state) => state.counter.countOne)
   const twoCount = useAppSelector((state) => state.twoCounter)
+  const arrayCount = useAppSelector((state) => state.arrayCounter.arrayCount)
   const dispatch: AppDispatch = useDispatch()
 
   const handleBeforeUnloadEvent = (event: BeforeUnloadEvent) => {
@@ -58,6 +60,13 @@ const AsyncApp: React.FC = () => {
           Down
         </button>
         <button onClick={() => persistor.purge()}>Purge</button>
+      </Box>
+      <Box sx={{ m: 2 }}>
+        <h1>ArrayCount: {arrayCount}</h1>
+        <button onClick={() => dispatch(arrayAddition([1, 2, 3]))}>
+          [1,2, 3]
+        </button>
+        <button onClick={() => dispatch(arrayAddition([1, 2]))}>[1,2]</button>
       </Box>
     </div>
   )
