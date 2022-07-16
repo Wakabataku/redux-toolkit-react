@@ -16,6 +16,7 @@ import { combineReducers } from "redux"
 
 import counterReducer from "./counterSlice"
 import twoCounterReducer from "./twoCounterSlice"
+import arrayCounter from "./arrayCounter"
 
 // 永続化の設定
 const persistConfig = {
@@ -27,6 +28,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   counter: counterReducer,
   twoCounter: twoCounterReducer,
+  arrayCounter: arrayCounter,
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
