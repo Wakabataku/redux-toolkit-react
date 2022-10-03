@@ -1,11 +1,12 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { AppDispatch, useAppSelector } from "./store/store"
 import { useDispatch } from "react-redux"
-import { Box } from "@mui/material"
 import { addition, subtraction } from "./store/counterSlice"
+// このBoxは気にしなくていい
+import { Box } from "@mui/material"
 
-import { twoAsyncCount } from "./store/twoCounterSlice"
-import { persistor } from "./index"
+import { twoAsyncCount } from "./store/asyncCounterSlice"
+import { persistor } from "./store/store"
 import { arrayAddition } from "./store/arrayCounter"
 
 const AsyncApp: React.FC = () => {
@@ -14,15 +15,10 @@ const AsyncApp: React.FC = () => {
   const arrayCount = useAppSelector((state) => state.arrayCounter.arrayCount)
   const dispatch: AppDispatch = useDispatch()
 
-  const handleBeforeUnloadEvent = (event: BeforeUnloadEvent) => {
-    console.log("ページ離れた")
+  const onClickPurge = () => {
+    console.log("localdataをpurge")
     persistor.purge()
   }
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnloadEvent)
-    return () =>
-      window.removeEventListener("beforeunload", handleBeforeUnloadEvent)
-  }, [])
 
   return (
     <div className="App">
@@ -30,11 +26,11 @@ const AsyncApp: React.FC = () => {
         <h1>Count: {count}</h1>
         <button onClick={() => dispatch(addition(1))}>Up</button>
         <button onClick={() => dispatch(subtraction(1))}>Down</button>
-        <button onClick={() => persistor.purge()}>Purge</button>
+        <button onClick={() => onClickPurge()}>Purge</button>
       </Box>
       <Box sx={{ m: 3 }}>
         <h1>Async Count: {twoCount.count}</h1>
-        <h1>Message: {twoCount.message}</h1>
+        <h1>Async Message: {twoCount.message}</h1>
         <button
           onClick={() =>
             dispatch(
@@ -59,7 +55,7 @@ const AsyncApp: React.FC = () => {
         >
           Down
         </button>
-        <button onClick={() => persistor.purge()}>Purge</button>
+        <button onClick={() => onClickPurge()}>Purge</button>
       </Box>
       <Box sx={{ m: 2 }}>
         <h1>ArrayCount: {arrayCount}</h1>

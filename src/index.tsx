@@ -4,12 +4,9 @@ import "./index.css"
 import reportWebVitals from "./reportWebVitals"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
-import { persistStore } from "redux-persist"
 
-import { store } from "./store/store"
+import { store, persistor } from "./store/store"
 import AsyncApp from "./AsyncApp"
-
-export const persistor = persistStore(store)
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(

@@ -1,9 +1,8 @@
-import { configureStore, createSelector } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import logger from "redux-logger"
 import {
   persistReducer,
-  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -15,8 +14,9 @@ import storage from "redux-persist/lib/storage"
 import { combineReducers } from "redux"
 
 import counterReducer from "./counterSlice"
-import twoCounterReducer from "./twoCounterSlice"
+import twoCounterReducer from "./asyncCounterSlice"
 import arrayCounter from "./arrayCounter"
+import { persistStore } from "redux-persist"
 
 // 永続化の設定
 const persistConfig = {
@@ -41,6 +41,7 @@ export const store = configureStore({
       },
     }).concat(logger),
 })
+export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

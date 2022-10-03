@@ -13,7 +13,7 @@ export const arrayCounterSlice = createSlice({
   initialState: initialState,
   reducers: {
     arrayAddition: (state, action: PayloadAction<number[]>) => {
-      state.arrayCount = action.payload
+      state.arrayCount = state.arrayCount.concat(action.payload)
     },
   },
 })

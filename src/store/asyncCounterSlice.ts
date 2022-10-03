@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import storage from "redux-persist/lib/storage"
 import { PURGE } from "redux-persist"
 
 export type Message = {
@@ -27,11 +28,10 @@ const initialState: Count = {
 const sleep = (waitTime: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTime))
 
-export const twoAsyncCount = createAsyncThunk(
+export const twoAsyncCount = createAsyncThunk<Message, Message>(
   "twoAsyncCount",
   async (numWithMessage: Message) => {
     await sleep(3000)
-
     return numWithMessage
   }
 )
@@ -85,9 +85,8 @@ export const twoCounterSlice = createSlice({
       state.error.status = true
       state.error.message = "cannot count Down!"
     })
-    builder.addCase(PURGE, (state) => {
-      // state.count = initialState.count
-      Object.assign(state, initialState)
+    builder.addCase(PURGE, () => {
+      storage.removeItem("root")
     })
   },
 })
