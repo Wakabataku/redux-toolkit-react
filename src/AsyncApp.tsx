@@ -33,7 +33,7 @@ const AsyncApp: React.FC = () => {
         <button onClick={() => persistor.purge()}>Purge</button>
       </Box>
       <Box sx={{ m: 3 }}>
-        <h1>Count: {twoCount.count}</h1>
+        <h1>Async Count: {twoCount.count}</h1>
         <h1>Message: {twoCount.message}</h1>
         <button
           onClick={() =>
